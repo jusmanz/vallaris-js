@@ -1,11 +1,21 @@
 {
+    // Change this to match your project
+    "include": ["src/**/*"],
     "compilerOptions": {
-        "module": "NodeNext",
-        "moduleResolution": "nodenext",
-        "target": "ES2020",
-        "sourceMap": true,
-        "outDir": "dist",
-        "strict": false,
-    },
-    "include": ["src/**/*"]
+      // Tells TypeScript to read JS files, as
+      // normally they are ignored as source files
+      "allowJs": true,
+      // Generate d.ts files
+      "declaration": true,
+      // This compiler run should
+      // only output d.ts files
+      "emitDeclarationOnly": true,
+      // Types should go into this directory.
+      // Removing this would place the .d.ts files
+      // next to the .js files
+      "outDir": "dist",
+      // go to js file when using IDE functions like
+      // "Go to Definition" in VSCode
+      "declarationMap": true
+    }
   }

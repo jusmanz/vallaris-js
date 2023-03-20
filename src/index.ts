@@ -1,5 +1,10 @@
 
-import { visibleGroup, renderGroup, renderLayers, selectLayers } from './visual/index.js'
-import { initial } from './config/index.js';
+// import { visibleGroup, renderGroup, renderLayers, selectLayers } from './visual'
+// import { initial } from './config';
 
-export { visibleGroup, renderGroup, renderLayers, selectLayers, initial }
+// const exported = { visibleGroup, renderGroup, renderLayers, selectLayers, initial };
+
+// export default exported
+
+export * from './visual';
+export * from "./config"

@@ -1,12 +1,16 @@
 {
   "name": "vallaris-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Typescript package for easy to use Vallaris API",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "npx tsc"
   },
   "repository": {
     "type": "git",

@@ -1,12 +1,9 @@
 {
     "compilerOptions": {
-      "module": "CommonJS",
-      "target": "ES2016",
-      "sourceMap": true,
-      "outDir": "./dist",
-      "noImplicitAny": true,
-      "declaration": true
-    },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules"]
-}
+      "moduleResolution": "Node",
+      "target": "es6",
+      "declaration": true,
+      "allowSyntheticDefaultImports": true,
+      "resolveJsonModule": true,
+    }
+  }

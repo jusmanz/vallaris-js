@@ -27,4 +27,11 @@ declare const visibleGroup: ({ map, groupId, type, options }: IVisibleGroup) => 
 declare const renderGroup: ({ styles, groupIds, options }: IRenderGroup) => any;
 declare const selectLayers: ({ styles, args }: ISelectLayers) => any[];
 declare const renderLayers: ({ styles, metadataKey }: IRenderLayer) => any[];
-export { visibleGroup, renderGroup, selectLayers, renderLayers };
+
+interface InitialProps {
+    apiKey: string;
+    host?: string;
+}
+declare const initial: ({ host, apiKey }: InitialProps) => void;
+
+export { initial, renderGroup, renderLayers, selectLayers, visibleGroup };

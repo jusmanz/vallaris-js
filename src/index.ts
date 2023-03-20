@@ -1,7 +1,7 @@
 
-import { visibleGroup, renderGroup, renderLayers, selectLayers } from './visual'
+import { group, layers } from './visual'
 import { initial } from './config';
 
-export { visibleGroup, renderGroup, renderLayers, selectLayers, initial };
+export { group, layers, initial };
 
 

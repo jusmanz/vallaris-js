@@ -1,1 +1,2 @@
-export { visibleGroup, renderGroup, selectLayers, renderLayers } from './layer'
+export { layers } from './layer'
+export { group } from './group'

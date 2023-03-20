@@ -1,4 +1,4 @@
-interface IVisibleGroup {
+interface VisibleGroup {
     map: any;
     groupId: string;
     type: "visible" | "none";
@@ -8,25 +8,36 @@ interface IVisibleGroup {
         returnStyle?: boolean;
     };
 }
-interface IRenderGroup {
+interface RenderGroup {
     styles: any;
     groupIds: string[];
     options?: {
         groupKey?: string;
     };
 }
-interface IRenderLayer {
+interface ReturnGroup {
+    groupId: string;
+    layers: any[];
+}
+
+interface SelectLayer {
     styles: any;
     metadataKey: string;
 }
-interface ISelectLayers {
+interface SelectLayerId {
     styles: any;
-    args: string[];
+    ids: string[];
 }
-declare const visibleGroup: ({ map, groupId, type, options }: IVisibleGroup) => any;
-declare const renderGroup: ({ styles, groupIds, options }: IRenderGroup) => any;
-declare const selectLayers: ({ styles, args }: ISelectLayers) => any[];
-declare const renderLayers: ({ styles, metadataKey }: IRenderLayer) => any[];
+
+declare const layers: {
+    select: ({ styles, ids }: SelectLayerId) => any[];
+    selectWithMetadata: ({ styles, metadataKey }: SelectLayer) => any[];
+};
+
+declare const group: {
+    get: ({ styles, groupIds, options }: RenderGroup) => ReturnGroup[];
+    visibility: ({ map, groupId, type, options }: VisibleGroup) => any;
+};
 
 interface InitialProps {
     apiKey: string;
@@ -34,4 +45,4 @@ interface InitialProps {
 }
 declare const initial: ({ host, apiKey }: InitialProps) => void;
 
-export { initial, renderGroup, renderLayers, selectLayers, visibleGroup };
+export { group, initial, layers };

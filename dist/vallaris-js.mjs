@@ -1,4 +1,30 @@
-import { set, get } from 'dot-prop-immutable';
+import { get as get$1, set } from 'dot-prop-immutable';
+
+const select = ({ styles, ids }) => {
+  const { layers: layers2 } = styles;
+  let newRender = [];
+  layers2.map((l) => {
+    if (ids.includes(l.id)) {
+      newRender.push(l);
+    }
+  });
+  return newRender;
+};
+const selectWithMetadata = ({ styles, metadataKey }) => {
+  const { layers: layers2 } = styles;
+  let newRender = [];
+  layers2.map((l) => {
+    const newMetadata = get$1(l, "metadata") ? Object.keys(get$1(l, "metadata")).filter((mt) => mt === metadataKey) : [];
+    if (newMetadata.length) {
+      newRender.push(l);
+    }
+  });
+  return newRender;
+};
+const layers = {
+  select,
+  selectWithMetadata
+};
 
 var __defProp = Object.defineProperty;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
@@ -16,9 +42,8 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-const visibleGroup = ({ map, groupId, type, options }) => {
-  const { groupKey, onlyGroup, returnStyle } = options;
-  const key = groupKey ? groupKey : "vallaris:group";
+const visibility = ({ map, groupId, type, options }) => {
+  const key = (options == null ? void 0 : options.groupKey) ? options.groupKey : "vallaris:group";
   const styles = map.getStyle();
   const { layers } = styles;
   let newLayers = [];
@@ -31,51 +56,37 @@ const visibleGroup = ({ map, groupId, type, options }) => {
       map.setLayoutProperty(layer.id, "visibility", type);
     } else {
       newLayers.push(layer);
-      if (onlyGroup && type === "visible")
+      if ((options == null ? void 0 : options.onlyGroup) && type === "visible")
         map.setLayoutProperty(layer.id, "visibility", "none");
     }
   }
-  if (returnStyle) {
+  if (options == null ? void 0 : options.returnStyle) {
     let newStyle = __spreadValues({}, styles);
     newStyle.layers = newLayers;
     return newStyle;
   }
 };
-const renderGroup = ({ styles, groupIds, options }) => {
-  const { groupKey } = options;
-  const key = groupKey ? groupKey : "vallaris:group";
+const get = ({ styles, groupIds, options }) => {
+  const key = (options == null ? void 0 : options.groupKey) ? options.groupKey : "vallaris:group";
   let groups = [];
   const { layers } = styles;
   const filterLayers = layers.filter(
     (l) => l.metadata && l.metadata[key] && groupIds.includes(l.metadata[key])
   );
   filterLayers.map((l) => {
-    const layers2 = renderLayers({ styles, metadataKey: l.metadata[key] });
-    let input = { groupId: l.metadata[key], layers: layers2 };
-    groups.push(input);
+    if (groups.filter((g) => g.groupId === l.metadata[key]).length) {
+      const index = groups.map((g) => g.groupId).indexOf(l.metadata[key]);
+      groups[index].layers.push(l);
+    } else {
+      let input = { groupId: l.metadata[key], layers: [l] };
+      groups.push(input);
+    }
   });
   return groups;
 };
-const selectLayers = ({ styles, args }) => {
-  const { layers } = styles;
-  let newRender = [];
-  layers.map((l) => {
-    if (args.includes(l.id)) {
-      newRender.push(l);
-    }
-  });
-  return newRender;
-};
-const renderLayers = ({ styles, metadataKey }) => {
-  const { layers } = styles;
-  let newRender = [];
-  layers.map((l) => {
-    const newMetadata = get(l, "metadata") ? Object.keys(get(l, "metadata")).filter((mt) => mt === metadataKey) : [];
-    if (newMetadata.length) {
-      newRender.push(l);
-    }
-  });
-  return newRender;
+const group = {
+  get,
+  visibility
 };
 
 const defaultHOST = "https://cloud.vallarismaps.com";
@@ -87,5 +98,5 @@ const initial = ({ host, apiKey }) => {
   }
 };
 
-export { initial, renderGroup, renderLayers, selectLayers, visibleGroup };
+export { group, initial, layers };
 //# sourceMappingURL=vallaris-js.mjs.map

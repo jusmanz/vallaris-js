@@ -19,10 +19,12 @@ yarn add vallaris-js
 ## Usage
 
 ```javascript
-import { visibleGroup, renderLayers } from "vallaris-js";
+import * as vallaris from "vallaris-js";
+
+import { group, layers } from "vallaris-js";
 
 // Visible layers in group id airport
-visibleGroup({
+group.visibility({
   map: "yourMap",
   groupId: "airport",
   type: "visible",
@@ -30,7 +32,7 @@ visibleGroup({
 //=>  visible layers by group
 
 // Render layers with metadata key interactive
-const InteractiveLayers = renderLayers({
+const InteractiveLayers = layers.selectWithMetadata({
   styles: "yourStyle",
   metadataKey: "interactive",
 });

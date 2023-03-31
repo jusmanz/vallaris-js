@@ -438,7 +438,10 @@ const styles = {
 };
 
 const defaultHOST = "https://cloud.vallarismaps.com";
-var config;
+var config = {
+  apiKey: "",
+  host: ""
+};
 class Initial {
   constructor(source) {
     this.features = features;

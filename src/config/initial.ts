@@ -10,7 +10,10 @@ interface InitialProps {
     host?: string;
 }
 
-var config: InitialProps;
+var config: InitialProps = {
+    apiKey: "",
+    host: "",
+};
 
 class Initial {
     features = features

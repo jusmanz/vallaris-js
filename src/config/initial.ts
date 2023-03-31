@@ -27,7 +27,7 @@ class Initial {
             const profile = getFetch(parseURL('profile', 'GET'), { method: 'GET' });
 
             profile.then(rs => {
-                if (rs.response === 200) {
+                if (rs.status === 200) {
                     this.features = features
                     this.styles = styles
                 } else {

@@ -1,6 +1,6 @@
 {
   "name": "vallaris-js",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Package for easy to use Vallaris API",
   "module": "dist/vallaris-js.mjs",
   "types": "dist/vallaris-js.d.ts",
@@ -28,6 +28,7 @@
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-json": "^5.0.1",
     "@rollup/plugin-node-resolve": "^14.1.0",
+    "@types/geojson": "^7946.0.10",
     "@types/node": "^18.15.3",
     "rollup": "^2.79.0",
     "rollup-plugin-dts": "^4.2.2",
@@ -35,10 +36,11 @@
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-string": "^3.0.0",
     "rollup-plugin-swc": "^0.2.1",
-    "typescript": "^4.8.3",
-    "serve": "^14.1.1"
+    "serve": "^14.1.1",
+    "typescript": "^4.8.3"
   },
   "dependencies": {
-    "dot-prop-immutable": "^2.1.1"
+    "dot-prop-immutable": "^2.1.1",
+    "geojson": "^0.5.0"
   }
 }

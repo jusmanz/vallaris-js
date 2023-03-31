@@ -1,6 +1,6 @@
 {
   "name": "vallaris-js",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Package for easy to use Vallaris API",
   "module": "dist/vallaris-js.mjs",
   "types": "dist/vallaris-js.d.ts",

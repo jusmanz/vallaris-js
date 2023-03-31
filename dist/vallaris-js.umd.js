@@ -354,7 +354,7 @@
 	          return `${url}${core}/features/${version}/collections/${ids.collectionId}/items${covertParamToString(params)}`;
 	      }
 	    case "profile":
-	      return `${url}/${core}/managements/${version}}/account/profile`;
+	      return `${url}${core}/managements/${version}/account/profile`;
 	    case "styles":
 	      switch (method) {
 	        case "POST":

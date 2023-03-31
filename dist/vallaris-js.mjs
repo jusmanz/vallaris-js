@@ -133,7 +133,6 @@ const version = "1.0";
 const getFetch = (url, options) => __async(void 0, null, function* () {
   return yield fetch(url, __spreadProps(__spreadValues({}, options), {
     "headers": {
-      "API-Key": config.apiKey,
       "Content-Type": "application/json"
     }
   })).then((rs) => __async(void 0, null, function* () {
@@ -155,37 +154,39 @@ const covertParamToString = (params) => {
 };
 const parseURL = (type, method, params, ids) => {
   const url = config.host;
+  const api_key = `api_key=${config.apiKey}`;
+  const withParams = params ? `${covertParamToString(params)}&${api_key}` : `?${api_key}`;
   switch (type) {
     case "collections":
       switch (method) {
         case "POST":
-          return `${url}${core}/features/${version}/collections`;
+          return `${url}${core}/features/${version}/collections?${api_key}`;
         default:
           if (ids.collectionId)
-            return `${url}${core}/features/${version}/collections/${ids.collectionId}`;
-          return `${url}${core}/features/${version}/collections${covertParamToString(params)}`;
+            return `${url}${core}/features/${version}/collections/${ids.collectionId}?${api_key}`;
+          return `${url}${core}/features/${version}/collections${withParams}`;
       }
     case "items":
       switch (method) {
         case "POST":
-          return `${url}${core}/features/${version}/collections/${ids.collectionId}/items`;
+          return `${url}${core}/features/${version}/collections/${ids.collectionId}/items?${api_key}`;
         default:
           if (ids.featureId)
-            return `${url}${core}/features/${version}/collections/${ids.collectionId}/items/${ids.featureId}`;
-          return `${url}${core}/features/${version}/collections/${ids.collectionId}/items${covertParamToString(params)}`;
+            return `${url}${core}/features/${version}/collections/${ids.collectionId}/items/${ids.featureId}?${api_key}`;
+          return `${url}${core}/features/${version}/collections/${ids.collectionId}/items${withParams}`;
       }
     case "profile":
-      return `${url}${core}/managements/${version}/account/profile`;
+      return `${url}${core}/managements/${version}/account/profile?${api_key}`;
     case "styles":
       switch (method) {
         case "POST":
-          return `${url}${core}/styles/${version}-beta/styles`;
+          return `${url}${core}/styles/${version}-beta/styles?${api_key}`;
         default:
           if (ids.collectionId)
-            return `${url}${core}/styles/${version}-beta/styles/${ids.collectionId}`;
+            return `${url}${core}/styles/${version}-beta/styles/${ids.collectionId}?${api_key}`;
           if (ids.metadata && ids.collectionId)
-            return `${url}${core}/styles/${version}-beta/styles/${ids.collectionId}/metadata`;
-          return `${url}${core}/styles/${version}-beta/styles/${ids.collectionId}${covertParamToString(params)}`;
+            return `${url}${core}/styles/${version}-beta/styles/${ids.collectionId}/metadata?${api_key}`;
+          return `${url}${core}/styles/${version}-beta/styles/${ids.collectionId}${withParams}`;
       }
     default:
       return `${url}`;

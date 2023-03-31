@@ -1,1 +1,1 @@
-export { initial, config } from './initial'
+export { config } from './initial'

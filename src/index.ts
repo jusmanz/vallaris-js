@@ -1,7 +1,6 @@
 
 import { group, layers } from './visual'
-import { initial } from './config';
+import Initial from './config/initial';
 
-export { group, layers, initial };
-
+export { Initial, group, layers };
 

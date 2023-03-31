@@ -1,3 +1,8 @@
+
+import { features } from '../features'
+import { styles } from '../styles';
+import { getFetch, parseURL } from './fetch';
+
 const defaultHOST = "https://cloud.vallarismaps.com";
 
 interface InitialProps {
@@ -7,15 +12,32 @@ interface InitialProps {
 
 var config: InitialProps;
 
-const initial = ({ host, apiKey }: InitialProps) => {
-    config.host = host ? host : defaultHOST;
+class Initial {
+    features = features
+    styles = styles
+    constructor(source: InitialProps) {
+        config.host = source.host ? source.host : defaultHOST;
+        if (source.apiKey) {
 
-    if (config.apiKey) {
-        config.apiKey = apiKey;
-    } else {
-        throw new Error("API Key is require please check in management > API Key");
+            config.apiKey = source.apiKey;
+
+            const profile = getFetch(parseURL('profile', 'GET'), { method: 'GET' });
+
+            profile.then(rs => {
+                if (rs.response === 200) {
+                    this.features = features
+                    this.styles = styles
+                } else {
+                    this.features = null;
+                    this.styles = null
+                }
+            })
+        } else {
+            this.features = null
+        }
     }
+}
 
-};
+export { config }
 
-export { initial, config };
+export default Initial

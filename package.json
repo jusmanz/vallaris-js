@@ -21,15 +21,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/istick15/vallaris-js.git"
+    "url": "git+https://github.com/jusmanz/vallaris-js.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/istick15/vallaris-js/issues"
+    "url": "https://github.com/jusmanz/vallaris-js/issues"
   },
-  "homepage": "https://github.com/istick15/vallaris-js#readme",
+  "homepage": "https://github.com/jusmanz/vallaris-js#readme",
   "devDependencies": {
     "@types/geojson": "^7946.0.10",
     "@types/node": "^18.15.3",

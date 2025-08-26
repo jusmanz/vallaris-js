@@ -1,4 +1,4 @@
-import { FeatureCollection } from "geojson";
+import { Feature, FeatureCollection } from "geojson";
 
 interface CollectionTypes {
     search?: string;
@@ -66,7 +66,7 @@ interface PutCollection {
 interface PutFeature {
     collectionId: string;
     featureId: string;
-    body: BodyCollection
+    body: Feature
 }
 
-export { CollectionTypes, FeatureTypes, GetCollection, GetFeature, PostCollection, PostFeature, PutCollection, PutFeature }
+export { CollectionTypes, FeatureTypes, GetCollection, GetFeature, PostCollection, PostFeature, PutCollection, PutFeature, BodyCollection }

@@ -1,197 +1,197 @@
 ![Vallaris Logo](https://v2k-dev.vallarismaps.com/core/api/managements/1.0/files/63f347fcb8e142c8f4b5cfd0/view)
 
-## Vallaris Maps
+## Vallaris JS SDK
 
-[Vallaris Maps](https://vallarismaps.com/) is Geospatial data platform that provides tools for stored, analysis and visualize spatial data with effortless. By following international standard especialy OGC API series and Open Data scheme.
+A lightweight TypeScript SDK for Vallaris Maps APIs. Query and manage geospatial data following OGC API - Features standards with a clean, typed developer experience.
 
-## Installation
+- ESM + CJS builds, TypeScript types included
+- OGC API - Features aligned endpoints (Collections/Items CRUD, PATCH)
+- Works with Bun, Node.js, and modern bundlers
+
+References: [OGC API - Features](https://github.com/opengeospatial/ogcapi-features), [tsdown](https://tsdown.dev/)
+
+---
+
+### Installation
 
 ```bash
-npm install vallaris-js
+# npm	npm install vallaris-js
+# yarn	yarn add vallaris-js
+# pnpm	pnpm add vallaris-js
+# bun	bun add vallaris-js
 ```
 
-or
+---
 
-```bash
-yarn add vallaris-js
-```
+### Quick Start
 
-## Retrieve Data Services from Vallaris
-
-Data Services can be free or limit access to from Vallaris. All of data services such as location, events can inquiry from Vallaris. Moreover, services are compile to OGC API Standards.
-
-```javascript
-import { Initial } from "vallaris-js";
+```ts
+import Initial from "vallaris-js";
 
 const vallaris = new Initial({
- apiKey: {{VALLARIS_API_KEY}},
- host: "https://cloud.vallarismaps.com" // default optional
-})
+  apiKey: process.env.VALLARIS_API_KEY!,
+  host: "https://app.vallarismaps.com", // optional (default)
+});
 
+// Legacy grouped API (still supported)
 const collection = await vallaris.features.get.collections({
-  collectionId: {{VALLARIS_COLLECTION_ID}}
-})
-
-const data = await vallaris.features.get.data({
-  collectionId: {{VALLARIS_COLLECTION_ID}},
-  featureId: {{VALLARIS_FEATURE_ID}}
-})
-
+  collectionId: "<COLLECTION_ID>",
+});
 ```
 
-## Example Collection Return
+Thai (สรุป): ติดตั้งแพ็กเกจ แล้วสร้าง `Initial` ด้วย `apiKey` ของคุณ จากนั้นเรียกใช้งานเมธอดตามตัวอย่างได้ทันที
 
-```json
-{
-    "collections": [
-        {
-            "id": {ID},
-            "title": "geoJson_input",
-            "extent": {
-                "spatial": {
-                    "bbox": [
-                        [
-                            98.73183,
-                            8.43718,
-                            103.549,
-                            16.5669
-                        ]
-                    ],
-                    "crs": "http://www.opengis.net/def/crs/OGC/1.3/CRS84"
-                },
-                "temporal": null
-            },
-            "itemType": "Feature",
-            "crs": [
-                "http://www.opengis.net/def/crs/OGC/1.3/CRS84",
-                "http://www.opengis.net/def/crs/EPSG/0/4326"
-            ],
-            "storageCrs": "http://www.opengis.net/def/crs/OGC/1.3/CRS84",
-            "storageCrsCoordinateEpoch": null,
-            "public": false,
-            "links": [
-                {
-                    "href": "{HOST}/core/api/features/1.0/collections/{ID}?api_key={API_KEY}",
-                    "rel": "self",
-                    "type": "application/json",
-                    "title": "This document"
-                },
-                {
-                    "href": "{HOST}/core/api/features/1.0/collections/{ID}/items?api_key={API_KEY}",
-                    "rel": "items",
-                    "type": "application/geo+json",
-                    "title": "Access the features in this collection as GeoJSON"
-                },
-                {
-                    "href": "{HOST}/core/api/features/1.0/collections/{ID}?api_key={API_KEY}",
-                    "rel": "self",
-                    "type": "application/json",
-                    "title": "This document"
-                },
-                {
-                    "href": "{HOST}/core/api/features/1.0/collections/{ID}/items?api_key={API_KEY}",
-                    "rel": "items",
-                    "type": "application/geo+json",
-                    "title": "Access the features in this collection as GeoJSON"
-                }
-            ],
-            "createdAt": "2021-08-18T03:49:42.398Z",
-            "createdBy": "60f539a5a44d2d7219fac3e3",
-            "updatedAt": "2021-10-20T11:53:50.843Z",
-            "updatedBy": "60f539a5a44d2d7219fac3e3"
-        }
-    ],
-    "links": [
-        {
-            "href": "{HOST}/core/api/features/1.0/collections?api_key={API_KEY}",
-            "rel": "self",
-            "type": "application/json",
-            "title": "This document"
-        },
-        {
-            "href": "{HOST}/core/api/features/1.0/collections?api_key={API_KEY}&itemType=Feature&limit=1&offset=1",
-            "rel": "next",
-            "type": "application/json"
-        }
-    ],
-    "crs": [
-        "http://www.opengis.net/def/crs/OGC/1.3/CRS84",
-        "http://www.opengis.net/def/crs/EPSG/0/4326"
-    ],
-    "numberMatched": 21,
-    "numberReturned": 1
-}
+---
 
+### Modern Usage: FeaturesClient (recommended)
+
+The new class-style client provides focused, typed methods that map to OGC API - Features endpoints.
+
+```ts
+const client = new vallaris.Features();
+
+// Collections
+await client.listCollections({ limit: 10, offset: 0 });
+await client.getCollection("<COLLECTION_ID>");
+await client.createCollection({
+  title: "buildings",
+  description: "Building footprints",
+  itemType: "Feature",
+  public: false,
+});
+await client.updateCollection("<COLLECTION_ID>", {
+  title: "buildings-updated",
+  description: "...",
+  itemType: "Feature",
+});
+await client.deleteCollection("<COLLECTION_ID>");
+
+// Items (Features)
+await client.listItems("<COLLECTION_ID>", { limit: 20, bbox: "100,13,101,14" });
+await client.getItem("<COLLECTION_ID>", "<FEATURE_ID>");
+await client.createItems("<COLLECTION_ID>", featureCollection); // GeoJSON FeatureCollection
+await client.replaceItem("<COLLECTION_ID>", "<FEATURE_ID>", feature); // GeoJSON Feature (PUT)
+await client.updateItem("<COLLECTION_ID>", "<FEATURE_ID>", {
+  properties: { status: "active" },
+}); // PATCH (partial)
+await client.deleteItem("<COLLECTION_ID>", "<FEATURE_ID>");
 ```
 
-## Example Data Return
+Thai (สรุป): ใช้ `vallaris.Features()` เพื่อทำงานกับ Collections และ Items ได้ครบ (GET/POST/PUT/PATCH/DELETE) แบบตรงตามมาตรฐาน OGC
 
-```json
- {
-    "type": "FeatureCollection",
-    "features": [
-        {
-            "id": {FEATURE_ID},
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    99.678955078125,
-                    12.993852961834985
-                ]
-            },
-            "properties": {
-                "_collectionId": {COLLECTION_ID},
-                "_createdAt": "2021-08-18T09:50:36.534Z",
-                "_updatedAt": "2021-08-18T09:50:36.534Z"
-            }
-        }
-    ],
-    "links": [
-        {
-            "href": "{HOST}/core/api/features/1.0/collections/{ID}/items?api_key={API_KEY}",
-            "rel": "self",
-            "type": "application/geo+json",
-            "title": "This document"
-        },
-        {
-            "href": "{HOST}/core/api/features/1.0/collections/{ID}/items?api_key={API_KEY}",
-            "rel": "alternate",
-            "type": "application/json",
-            "title": "This document"
-        },
-        {
-            "href": "{HOST}/core/api/features/1.0/collections/{ID}/items?api_key={API_KEY}&limit=1&offset=1",
-            "rel": "next",
-            "type": "application/geo+json"
-        }
-    ],
-    "timeStamp": "2023-03-31T07:49:20.988Z",
-    "numberMatched": 124,
-    "numberReturned": 1
-}
+---
 
+### Legacy API (kept for compatibility)
+
+```ts
+// Collections
+await vallaris.features.get.collections({ params: { limit: 10 } });
+await vallaris.features.get.collections({ collectionId: "<COLLECTION_ID>" });
+await vallaris.features.create.collections({
+  body: { title: "...", description: "...", itemType: "Feature" },
+});
+await vallaris.features.update.collections({
+  collectionId: "<COLLECTION_ID>",
+  body: { title: "updated", description: "...", itemType: "Feature" },
+});
+await vallaris.features.remove.collections({ collectionId: "<COLLECTION_ID>" });
+
+// Items
+await vallaris.features.get.data({
+  collectionId: "<COLLECTION_ID>",
+  params: { limit: 10 },
+});
+await vallaris.features.get.data({
+  collectionId: "<COLLECTION_ID>",
+  featureId: "<FEATURE_ID>",
+});
+await vallaris.features.create.data({
+  collectionId: "<COLLECTION_ID>",
+  body: featureCollection,
+});
+await vallaris.features.update.data({
+  collectionId: "<COLLECTION_ID>",
+  featureId: "<FEATURE_ID>",
+  body: feature,
+});
+await vallaris.features.remove.data({
+  collectionId: "<COLLECTION_ID>",
+  featureId: "<FEATURE_ID>",
+});
 ```
 
-## Style Manage
+---
 
-```javascript
-import * as vallaris from "vallaris-js";
+### OGC API Compliance
 
+- Endpoints follow OGC API - Features Part 1: Core (Collections, Items)
+- Replace item uses PUT; partial update uses PATCH (aligned with Part 4 draft Transactions)
+- Query params like `bbox`, `datetime`, `limit`, `offset` are supported on listing endpoints
+
+See: [OGC API - Features](https://github.com/opengeospatial/ogcapi-features)
+
+Thai (สรุป): รองรับมาตรฐาน OGC API - Features โดยตรง ทั้งโครงสร้าง URL และเมธอด CRUD
+
+---
+
+### TypeScript
+
+- Full types for requests and GeoJSON payloads
+- `replaceItem` expects a GeoJSON `Feature`
+- `createItems` expects a GeoJSON `FeatureCollection`
+
+```ts
+import type { Feature, FeatureCollection } from "geojson";
+```
+
+---
+
+### Styles and Map helpers (optional)
+
+You can continue using the existing Style/Map helpers if needed.
+
+```ts
+// Example (existing API surface)
 import { group, layers } from "vallaris-js";
 
-// Visible layers in group id airport
-group.visibility({
-  map: "yourMap",
-  groupId: "airport",
-  type: "visible",
-});
-//=>  visible layers by group
+// Visible layers by group
+group.visibility({ map: "yourMap", groupId: "airport", type: "visible" });
 
-// Render layers with metadata key interactive
-const InteractiveLayers = layers.selectWithMetadata({
+// Select layers with metadata
+const interactiveLayers = layers.selectWithMetadata({
   styles: "yourStyle",
   metadataKey: "interactive",
 });
-//=>  render list of layers with metadata key interactive
 ```
+
+---
+
+### Node/Bun support and bundling
+
+- Published as ESM and CJS with types (d.ts) and sourcemaps
+- Works with Bun, Node.js 18+
+- Built with `tsdown` for fast builds and clean output: [tsdown.dev](https://tsdown.dev/)
+
+---
+
+### Troubleshooting
+
+- 401/403: verify `apiKey`
+- Network/CORS: ensure your environment allows requests to `app.vallarismaps.com`
+- GeoJSON shape: validate payloads (required properties for Feature/FeatureCollection)
+
+---
+
+### License
+
+ISC
+
+---
+
+### Changelog (highlights)
+
+- 1.1.0-beta.1
+  - New `FeaturesClient` class (recommended)
+  - `PATCH` support for partial item updates
+  - Build migrated to `tsdown`; ESM/CJS + types
+  - Safer publishing (`.gitignore`, `files` whitelist)

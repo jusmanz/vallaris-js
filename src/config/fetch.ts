@@ -58,6 +58,8 @@ const parseURL = (type: "collections" | "items" | "profile" | "styles", method: 
             switch (method) {
                 case 'POST':
                     return `${url}${core}/features/${version}/collections/${ids.collectionId}/items?${api_key}`
+                case 'PATCH':
+                    return `${url}${core}/features/${version}/collections/${ids.collectionId}/items/${ids.featureId}?${api_key}`
                 default:
                     if (ids.featureId) return `${url}${core}/features/${version}/collections/${ids.collectionId}/items/${ids.featureId}?${api_key}`
                     return `${url}${core}/features/${version}/collections/${ids.collectionId}/items${withParams}`

@@ -9,7 +9,7 @@ interface StyleParams {
 
 interface GetStyle {
     styleId: string,
-    params: StyleParams,
+    params?: StyleParams,
     metadata?: boolean
 }
 

@@ -1,9 +1,8 @@
 
 import { features } from '../features'
-import { styles } from '../styles';
+import { FeaturesClient } from '../features'
 import { getFetch, parseURL } from './fetch';
-
-const defaultHOST = "https://cloud.vallarismaps.com";
+const defaultHOST = "https://app.vallarismaps.com";
 
 interface InitialProps {
     apiKey: string;
@@ -15,9 +14,9 @@ var config: InitialProps = {
     host: "",
 };
 
-class Initial {
+class createClient {
     features = features
-    styles = styles
+    Features = FeaturesClient
     constructor(source: InitialProps) {
         config.host = source.host ? source.host : defaultHOST;
         if (source.apiKey) {
@@ -29,18 +28,23 @@ class Initial {
             profile.then(rs => {
                 if (rs.status === 200) {
                     this.features = features
-                    this.styles = styles
+                    this.Features = FeaturesClient
+
                 } else {
                     this.features = null;
-                    this.styles = null
+                    this.Features = null
+
                 }
             })
         } else {
             this.features = null
+            this.Features = null
+
         }
     }
 }
 
+
 export { config }
 
-export default Initial
+export default createClient

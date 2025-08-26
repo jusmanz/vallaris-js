@@ -1,6 +1,4 @@
+import createClient from './config/initial';
 
-import { group, layers } from './visual'
-import Initial from './config/initial';
-
-export { Initial, group, layers };
+export { createClient };
 

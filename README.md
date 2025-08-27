@@ -15,10 +15,10 @@ References: [OGC API - Features](https://github.com/opengeospatial/ogcapi-featur
 ### Installation
 
 ```bash
-# npm	npm install vallaris-js
-# yarn	yarn add vallaris-js
-# pnpm	pnpm add vallaris-js
-# bun	bun add vallaris-js
+# npm	npm install vallaris
+# yarn	yarn add vallaris
+# pnpm	pnpm add vallaris
+# bun	bun add vallaris
 ```
 
 ---
@@ -26,7 +26,7 @@ References: [OGC API - Features](https://github.com/opengeospatial/ogcapi-featur
 ### Quick Start
 
 ```ts
-import Initial from "vallaris-js";
+import Initial from "vallaris";
 
 const vallaris = new Initial({
   apiKey: process.env.VALLARIS_API_KEY!,
@@ -152,7 +152,7 @@ You can continue using the existing Style/Map helpers if needed.
 
 ```ts
 // Example (existing API surface)
-import { group, layers } from "vallaris-js";
+import { group, layers } from "vallaris";
 
 // Visible layers by group
 group.visibility({ map: "yourMap", groupId: "airport", type: "visible" });

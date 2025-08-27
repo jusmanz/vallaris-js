@@ -1,5 +1,5 @@
 {
-  "name": "vallaris-js",
+  "name": "vallaris",
   "version": "0.0.1-beta.1",
   "description": "Package for easy to use Vallaris API",
   "module": "dist/index.js",
@@ -14,6 +14,9 @@
     "README.md",
     "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsdown",

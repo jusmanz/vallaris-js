@@ -1,6 +1,6 @@
 {
   "name": "vallaris",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.2",
   "description": "Package for easy to use Vallaris API",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,9 +18,10 @@
     "access": "public"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest --run",
     "build": "tsdown",
-    "dev": "tsdown --watch"
+    "dev": "tsdown --watch",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
@@ -36,9 +37,13 @@
   "devDependencies": {
     "@types/geojson": "^7946.0.10",
     "@types/node": "^18.15.3",
-    "tsdown": "*",
+    "@vitest/coverage-v8": "^3.2.4",
+    "cross-env": "^10.0.0",
+    "dotenv": "^17.2.1",
     "serve": "^14.1.1",
-    "typescript": "^5.9.2"
+    "tsdown": "*",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "dot-prop-immutable": "^2.1.1",

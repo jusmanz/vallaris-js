@@ -28,6 +28,24 @@ coverage/
 !.env.example
 *.local
 
+# Secrets (files and folders)
+.npm-cache/
+.secrets/
+secrets/
+.ssh/
+.aws/
+.gcp/
+.azure/
+.kube/
+*.pem
+*.key
+*.crt
+*.pfx
+*.p12
+*.cer
+*.der
+id_*
+
 # Logs
 *.log
 logs/

@@ -51,18 +51,18 @@ const parseURL = (type: "collections" | "items" | "profile" | "styles", method: 
                 case 'POST':
                     return `${url}${core}/features/${version}/collections?${api_key}`
                 default:
-                    if (ids.collectionId) return `${url}${core}/features/${version}/collections/${ids.collectionId}?${api_key}`
+                    if (ids && ids.collectionId) return `${url}${core}/features/${version}/collections/${ids.collectionId}?${api_key}`
                     return `${url}${core}/features/${version}/collections${withParams}`
             }
         case 'items':
             switch (method) {
                 case 'POST':
-                    return `${url}${core}/features/${version}/collections/${ids.collectionId}/items?${api_key}`
+                    return `${url}${core}/features/${version}/collections/${ids?.collectionId}?${api_key}`
                 case 'PATCH':
-                    return `${url}${core}/features/${version}/collections/${ids.collectionId}/items/${ids.featureId}?${api_key}`
+                    return `${url}${core}/features/${version}/collections/${ids?.collectionId}/items/${ids?.featureId}?${api_key}`
                 default:
-                    if (ids.featureId) return `${url}${core}/features/${version}/collections/${ids.collectionId}/items/${ids.featureId}?${api_key}`
-                    return `${url}${core}/features/${version}/collections/${ids.collectionId}/items${withParams}`
+                    if (ids?.featureId) return `${url}${core}/features/${version}/collections/${ids?.collectionId}/items/${ids?.featureId}?${api_key}`
+                    return `${url}${core}/features/${version}/collections/${ids?.collectionId}/items${withParams}`
             }
         case 'profile':
             return `${url}${core}/managements/${version}/account/profile?${api_key}`
@@ -71,9 +71,9 @@ const parseURL = (type: "collections" | "items" | "profile" | "styles", method: 
                 case 'POST':
                     return `${url}${core}/styles/${version}-beta/styles?${api_key}`
                 default:
-                    if (ids.collectionId) return `${url}${core}/styles/${version}-beta/styles/${ids.collectionId}?${api_key}`
-                    if (ids.metadata && ids.collectionId) return `${url}${core}/styles/${version}-beta/styles/${ids.collectionId}/metadata?${api_key}`
-                    return `${url}${core}/styles/${version}-beta/styles/${ids.collectionId}${withParams}`
+                    if (ids?.collectionId) return `${url}${core}/styles/${version}-beta/styles/${ids.collectionId}?${api_key}`
+                    if (ids?.metadata && ids?.collectionId) return `${url}${core}/styles/${version}-beta/styles/${ids.collectionId}/metadata?${api_key}`
+                    return `${url}${core}/styles/${version}-beta/styles/${ids?.collectionId}${withParams}`
             }
         default:
             return `${url}`

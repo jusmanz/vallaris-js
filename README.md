@@ -2,6 +2,8 @@
 
 ## Vallaris JS SDK
 
+[![npm version](https://img.shields.io/npm/v/vallaris.svg)](https://www.npmjs.com/package/vallaris) [![npm downloads](https://img.shields.io/npm/dm/vallaris.svg)](https://www.npmjs.com/package/vallaris)
+
 A lightweight TypeScript SDK for Vallaris Maps APIs. Query and manage geospatial data following OGC API - Features with a clean, typed developer experience.
 
 - ESM + CJS builds, TypeScript types included
